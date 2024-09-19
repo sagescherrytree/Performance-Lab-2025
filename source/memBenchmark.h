@@ -48,7 +48,7 @@ private:
 void profileH2HCopies(float        *h_a,
                       float        *h_b,
                       unsigned int  n,
-                      char         *desc)
+                      const char   *desc)
 {
     printf("\nHost to Host %s Memcpy\n", desc);
 
@@ -80,7 +80,7 @@ void profileCopies(float        *h_a,
                    float        *h_b,
                    float        *d,
                    unsigned int  n,
-                   char         *desc)
+                   const char   *desc)
 {
     printf("\n%s transfers\n", desc);
 
@@ -195,22 +195,24 @@ void profileD2DCopies(float        *d_a,
 
 int memBenchmark()
 {
-    unsigned int nElements = MB_TO_TRANSFER * 256 * 1024;
+    const unsigned int nElements = MB_TO_TRANSFER * 256 * 1024;
     const unsigned int bytes = nElements * sizeof(float);
 
-    // host arrays
-    float *h_aPageable, *h_bPageable;
-    float *h_aPinned, *h_bPinned;
-
-    // device array
-    float *d_a;
-    float *d_b;
-
     // allocate and initialize
-    h_aPageable = (float*)malloc(bytes);                    // host pageable
-    h_bPageable = (float*)malloc(bytes);                    // host pageable
+    // host arrays
+    float *h_aPageable = (float*)malloc(bytes);                    // host pageable
+    float *h_bPageable = (float*)malloc(bytes);                    // host pageable
+    if (h_aPageable == NULL || h_bPageable == NULL) {
+        printf("Could not allocate memory. Exiting.");
+        return -1;
+    }
+    float *h_aPinned, *h_bPinned;
     checkCuda(cudaMallocHost((void**)&h_aPinned, bytes)); // host pinned
     checkCuda(cudaMallocHost((void**)&h_bPinned, bytes)); // host pinned
+
+    // device array
+    float *d_a = NULL;
+    float *d_b = NULL;
     checkCuda(cudaMalloc((void**)&d_a, bytes));           // device
     checkCuda(cudaMalloc((void**)&d_b, bytes));           // device
 

@@ -73,8 +73,9 @@ bool postprocess(const float *ref, const float *res, int n)
 
 void preprocess(float *res, float *dev_res, int n)
 {
-    std::fill(res, res + n, -1);
-    cudaMemset(dev_res, -1, n * sizeof(float));
+    const float defaultFill = -1.0;
+    std::fill(res, res + n, defaultFill);
+    cudaMemset(dev_res, defaultFill, n * sizeof(float));
 }
 
 // TODO: COMPLETE THIS
