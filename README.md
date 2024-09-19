@@ -1,6 +1,6 @@
 # CIS 565 Performance Lab
 
-This is the second in series of 2 labs for CUDA. In this lab, we will discuss how NVIDIA's Nsight tools can aid in profiling CUDA programs.
+In this lab, we will discuss how NVIDIA's Nsight tools can aid in profiling CUDA programs.
 
 **The performance lab will be held in class. Please bring your Windows CUDA-Capable laptop with the code downloaded and built. If you do not have a Windows CUDA-Capable laptop, please find a partner to work with.** You will be able to follow the steps with Linux as well, but we will show this with Windows in the class.
 
@@ -8,12 +8,12 @@ This is the second in series of 2 labs for CUDA. In this lab, we will discuss ho
 
 ## Clone, Build and Run
 
-The source code consists of a CMake build structure similar to [Project 0](https://github.com/CIS565-Fall-2022/Project0-CUDA-Getting-Started).
+The source code consists of a CMake build structure similar to [Project 0](https://github.com/CIS5650-Fall-2024/Project0-CUDA-Getting-Started).
 Clone this repository from Github and then run the instructions below.
 
 1. From the `Performance-Lab` directory, run:
-    * Windows: `cmake -B build -S . -G "Visual Studio 17 2022" -A x64` to generate the Visual Studio project. You may choose a different Visual Studio version.
-    * Linux: `cmake -B build -S . -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug` to generate the makefiles.
+    * Windows: `cmake -B build -S . -G "Visual Studio 17 2022"` to generate the Visual Studio project. You may choose a different Visual Studio version.
+    * Linux: `cmake -B build -S . -G "Unix Makefiles"` to generate the makefiles.
 2. Open the generated `PerformanceLab.sln` project from the `build` directory.
 3. Build the project in Visual Studio. (Note that there are Debug and Release configuration options.)
 4. Run. Make sure you run the `transpose` target (not `ALL_BUILD`) by right-clicking it and selecting "Set as StartUp Project".
