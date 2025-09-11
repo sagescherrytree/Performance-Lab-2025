@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.24)
 project(PerformanceLab LANGUAGES CUDA CXX)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -7,12 +7,10 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-# Enable C++11 for host code
-set(CMAKE_CXX_STANDARD 11)
-if(NOT DEFINED CMAKE_CUDA_STANDARD)
-    set(CMAKE_CUDA_STANDARD 11)
-    set(CMAKE_CUDA_STANDARD_REQUIRED ON)
-endif()
+# Enable C++17 for host code
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CUDA_STANDARD 17)
+set(CMAKE_CUDA_STANDARD_REQUIRED ON)
 
 # Set a default build type if none was specified
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -28,13 +26,8 @@ set(EXECUTABLES transpose reduction)
 file(GLOB headers source/*.h source/*.hpp)
 foreach(exe ${EXECUTABLES})
     add_executable(${exe} source/${exe}.cu ${headers})
-    if(CMAKE_VERSION VERSION_LESS "3.23.0")
-        set_target_properties(${exe} PROPERTIES CUDA_ARCHITECTURES OFF)
-    elseif(CMAKE_VERSION VERSION_LESS "3.24.0")
-        set_target_properties(${exe} PROPERTIES CUDA_ARCHITECTURES all-major)
-    else()
-        set_target_properties(${exe} PROPERTIES CUDA_ARCHITECTURES native)
-    endif()
+    set_target_properties(${exe} PROPERTIES CUDA_ARCHITECTURES native)
+    set_target_properties(${exe} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
     target_compile_options(${exe} PRIVATE "$<$<AND:$<CONFIG:Debug,RelWithDebInfo>,$<COMPILE_LANGUAGE:CUDA>>:-G;-src-in-ptx>")
     target_compile_options(${exe} PRIVATE "$<$<AND:$<CONFIG:Release>,$<COMPILE_LANGUAGE:CUDA>>:-lineinfo;-src-in-ptx>")
 endforeach()

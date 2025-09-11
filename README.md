@@ -1,4 +1,4 @@
-# CIS 565 Performance Lab
+# CIS 5650 Performance Lab
 
 In this lab, we will discuss how NVIDIA's Nsight tools can aid in profiling CUDA programs.
 
@@ -8,7 +8,7 @@ In this lab, we will discuss how NVIDIA's Nsight tools can aid in profiling CUDA
 
 ## Clone, Build and Run
 
-The source code consists of a CMake build structure similar to [Project 0](https://github.com/CIS5650-Fall-2024/Project0-CUDA-Getting-Started).
+The source code consists of a CMake build structure similar to [Project 0](https://github.com/CIS5650-Fall-2025/Project0-Getting-Started).
 Clone this repository from Github and then run the instructions below.
 
 1. From the `Performance-Lab` directory, run:
