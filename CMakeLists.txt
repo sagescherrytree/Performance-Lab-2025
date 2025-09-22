@@ -22,7 +22,7 @@ endif()
 ########################################
 # Setup the executables
 ########################################
-set(EXECUTABLES transpose reduction reductionrecursive)
+set(EXECUTABLES transpose reduction)
 file(GLOB headers source/*.h source/*.hpp)
 foreach(exe ${EXECUTABLES})
     add_executable(${exe} source/${exe}.cu ${headers})
